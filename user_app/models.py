@@ -8,3 +8,5 @@ class Customer(models.Model):
   pnr_number = models.CharField(max_length=4)
   train_number = models.IntegerField()
 
+  def __str__(self):
+    return self.username

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Superuser Login</title>
+  </head>
+  <body>
+    <h2>Superuser Login</h2>
+    {% if error_message %}
+    <p>{{ error_message }}</p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>

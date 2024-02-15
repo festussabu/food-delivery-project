@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      .index-page-container {
+        width: 100%;
+        height: 100vh;
+        background: #383737;
+        color: white;
+      }
+      .index-page-container .main-container {
+        display: flex;
+        justify-content: space-around;
+      }
+      .index-page-container .main-container .heading h1 {
+        font-size: 3rem;
+      }
+      .index-page-container .main-container .heading p {
+        font-size: 1.3rem;
+        width: 50rem;
+        word-spacing: 2px;
+        line-height: 1.6rem;
+      }
+      .index-page-container .main-container img {
+        width: 50rem;
+        margin-top: 20px;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+      .index-page-container .lets-go h1 {
+        margin-left: 5rem;
+      }
+      .index-page-container .lets-go .box-item-container {
+        width: 99.9%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .index-page-container .lets-go .box-item-container .box-name {
+        border: 1px solid black;
+        background: rgb(209, 153, 49);
+        padding: 40px 9.5rem;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.4s ease;
+      }
+      .index-page-container .lets-go .box-item-container a {
+        text-decoration: none;
+        color: #292828;
+      }
+      .index-page-container .lets-go .box-item-container .box-name:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="index-page-container">
+      <div class="main-container">
+        <div class="heading">
+          <h1>Welcome To Food Delivery App</h1>
+          <p>
+            Here you can find a wide veriety of food from world wide. Customers
+            can order any food and we will get the food for you within 30
+            minutes. Our main focus is your satisfaction.
+          </p>
+        </div>
+        <img
+          src="https://qph.cf2.quoracdn.net/main-qimg-c0ed77c539f7f705ab4117f03382a6dd-lq"
+          alt="/"
+        />
+      </div>
+      <div class="lets-go">
+        <h1>So let's start explore.</h1>
+
+        <h1 style="margin-top: 3rem; margin-bottom: 0px">
+          Before we start, let me know who you really are?
+        </h1>
+
+        <div class="box-item-container">
+          <a href="{% url 'admin_app:superuser_login' %}">
+            <div class="box-name">ADMIN</div>
+          </a>
+          <a href="{% url 'vendor_app:vendor_reg' %}">
+            <div class="box-name">SELLER</div>
+          </a>
+          <a href="{% url 'admin_app:superuser_login' %}">
+            <div class="box-name">CUSTOMER</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

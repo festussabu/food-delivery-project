@@ -20,7 +20,6 @@ def vendor_registration_view(request):
       return redirect('vendor_app:vendor_reg')
     else:
       vendor_db = Vendor.objects.create(vendor_name = name, vendor_email=email, vendor_password=password)
-      messages.success(request, 'Registration successful. You can now log in.')
 
       if vendor_db:
         return redirect('vendor_app:vendor_page')
@@ -39,11 +38,11 @@ def login_page(request):
     if not email:
       messages.error(request, 'Enter your email')
       return redirect('vendor_app:login_page')
+    
     vendor_login = Vendor.objects.filter(vendor_email=email, vendor_password=password)
     if vendor_login:
       return redirect('vendor_app:vendor_page')
     else:
       messages.error(request, 'Email or Password is incorrect.')
-  
   
   return render(request, 'login_page.html')

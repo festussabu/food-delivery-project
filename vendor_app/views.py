@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Vendor
+from .models import Vendor, FoodItem
 
 # vendor registration
 def vendor_registration_view(request):
@@ -28,7 +28,9 @@ def vendor_registration_view(request):
 #vendor home page
 @login_required()
 def vendor_home_page(request):
-  return render(request, 'vendor_page.html')
+
+  food_items = FoodItem.objects.all()
+  return render(request, 'vendor_page.html', {'food_items':food_items})
 
 #login
 def login_page(request):

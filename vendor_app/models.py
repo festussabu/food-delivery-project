@@ -12,10 +12,10 @@ class Vendor(models.Model):
     return self.vendor_name
 
 class FoodItem(models.Model):
+  food_image = models.ImageField(upload_to='pics')
   food_name = models.CharField(max_length=25)
   food_description = models.CharField(max_length=50)
   food_price = models.IntegerField()
-  food_availability = models.BooleanField(default=True)
   vendor = models.OneToOneField(Vendor, on_delete=models.CASCADE)
 
   def __str__(self):

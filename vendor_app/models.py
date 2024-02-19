@@ -14,9 +14,8 @@ class Vendor(models.Model):
 class FoodItem(models.Model):
   food_image = models.ImageField(upload_to='pics')
   food_name = models.CharField(max_length=25)
-  food_description = models.CharField(max_length=20)
+  food_category = models.CharField(max_length=20)
   food_price = models.IntegerField()
-  vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.food_name

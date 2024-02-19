@@ -32,7 +32,7 @@
         justify-content: start;
       }
       .vendor-page-container nav a {
-        color: purple;
+        color: rgb(3, 10, 102);
         margin-left: 10px;
         text-decoration: none;
         font-weight: bold;
@@ -46,7 +46,7 @@
         gap: 25px;
       }
       .vendor-page-container .card-container .cards {
-        border: 1px solid black;
+        box-shadow: 0px 0px 20px rgb(180, 179, 179);
         border-radius: 3px;
         display: flex;
         flex-direction: column;
@@ -100,7 +100,9 @@
   <body>
     <div class="vendor-page-container">
       <nav>
-        <div class="add-food"><a href="#">Add Food Item</a></div>
+        <div class="add-food">
+          <a href="{% url 'vendor_app:add_food' %}">Add Food</a>
+        </div>
       </nav>
       <div class="card-container">
         {% for i in food_items %}
@@ -108,7 +110,7 @@
           <img src="{{i.food_image.url}}" alt="/" />
           <div class="card-details">
             <div>Name: <span style="color: red">{{i.food_name}}</span></div>
-            <div>Description: {{i.food_description}}</div>
+            <div>Category: {{i.food_category}}</div>
             <div>
               Rate:
               <span style="text-decoration: line-through; color: black"

@@ -11,7 +11,7 @@
         padding: 0;
         box-sizing: border-box;
       }
-      .vendor-page-container {
+      .user-page-container {
         height: 100vh;
         width: 100%;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -19,11 +19,11 @@
           sans-serif;
         position: relative;
       }
-      .vendor-page-container nav {
+      .user-page-container nav {
         position: fixed;
         top: 0;
       }
-      .vendor-page-container nav .add-food {
+      .user-page-container nav .orders {
         width: 100vw;
         height: 80px;
         background: rgb(228, 226, 226);
@@ -31,22 +31,22 @@
         align-items: center;
         justify-content: start;
       }
-      .vendor-page-container nav a {
-        color: purple;
+      .user-page-container nav a {
+        color: rgb(3, 10, 102);
         margin-left: 10px;
         text-decoration: none;
         font-weight: bold;
         font-size: 16px;
       }
-      .vendor-page-container .card-container {
+      .user-page-container .card-container {
         margin-top: 100px;
         padding: 20px;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 25px;
       }
-      .vendor-page-container .card-container .cards {
-        border: 1px solid black;
+      .user-page-container .card-container .cards {
+        box-shadow: 0px 0px 20px rgb(180, 179, 179);
         border-radius: 3px;
         display: flex;
         flex-direction: column;
@@ -54,38 +54,66 @@
         padding: 10px;
         word-wrap: break-word;
       }
-      .vendor-page-container .card-container .cards img {
+      .user-page-container .card-container .cards img {
         width: 100%;
         height: 180px;
         margin-bottom: 10px;
       }
-      .vendor-page-container .card-container .cards .card-details {
+      .user-page-container .card-container .cards .card-details {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
         font-weight: bold;
         gap: 5px;
       }
-      .vendor-page-container .card-container .cards .buy-product {
+      .user-page-container .card-container .cards .buy-product {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
       }
-      .vendor-page-container .card-container .cards .buy-product button {
+      .user-page-container .card-container .cards .buy-product button {
         cursor: pointer;
         padding: 10px 20px;
       }
-      .vendor-page-container .card-container .cards .buy-product .btn-update {
+      .user-page-container .card-container .cards .buy-product .btn-update {
         color: white;
         background: green;
         border-radius: 3px;
         border: none;
       }
+      .user-page-container nav .orders input {
+        padding: 10px 20px;
+        margin-left: 5rem;
+        outline: none;
+        border-radius: 3px;
+        font-size: 16px;
+        border: none;
+      }
+      .user-page-container nav .orders button {
+        padding: 11px;
+        margin-left: 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: white;
+      }
     </style>
   </head>
   <body>
-    <div class="vendor-page-container">
+    <div class="user-page-container">
       <nav>
-        <div class="add-food"><a href="#">Orders</a></div>
+        <div class="orders">
+          <a href="#">Orders</a>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input
+              type="text"
+              name="search-category"
+              class="search-category"
+              placeholder="Your Favorite Category"
+            />
+            <button>🔎</button>
+          </form>
+        </div>
       </nav>
       <div class="card-container">
         {% for i in food_items %}
@@ -93,7 +121,7 @@
           <img src="{{i.food_image.url}}" alt="/" />
           <div class="card-details">
             <div>Name: <span style="color: red">{{i.food_name}}</span></div>
-            <div>Description: {{i.food_description}}</div>
+            <div>Category: {{i.food_category}}</div>
             <div>
               Rate:
               <span style="text-decoration: line-through; color: black"

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Customer
+from vendor_app.models import FoodItem
 
 # user Registration
 def user_registraion(request):
@@ -30,8 +31,8 @@ def user_registraion(request):
 
 #user Home page
 def user_page(request):
-  return render(request, 'user_page.html')
-
+  food_items = FoodItem.objects.all()
+  return render(request, 'user_page.html', {'food_items':food_items})
 #login
 def login_page_user(request):
   if request.method == 'POST':

@@ -28,7 +28,6 @@ def vendor_registration_view(request):
 #vendor home page
 @login_required()
 def vendor_home_page(request):
-
   food_items = FoodItem.objects.all()
   return render(request, 'vendor_page.html', {'food_items':food_items})
 

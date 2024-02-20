@@ -2,7 +2,24 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Customer
 from vendor_app.models import FoodItem
+from django.db.models import Q
 
+
+
+
+
+#user Home page
+def user_page(request):
+    search_category = request.POST.get('search_category')
+    if search_category:
+      food_items = FoodItem.objects.filter(Q(food_category__iexact=search_category))
+      if food_items:
+        return render(request, 'user_page.html', {'food_items': food_items})
+      else:
+        return render(request, 'user_page.html',{'msg':'OOPS... NO ITEM FOUND'})
+
+    food_items = FoodItem.objects.all()
+    return render(request, 'user_page.html', {'food_items': food_items})
 
 
 
@@ -35,14 +52,8 @@ def user_registraion(request):
 
 
 
-#user Home page
-def user_page(request):
-  food_items = FoodItem.objects.all()
-  return render(request, 'user_page.html', {'food_items':food_items})
 
-
-
-#login
+#customer login
 def login_page_user(request):
   if request.method == 'POST':
     email = request.POST.get('email')
@@ -58,3 +69,10 @@ def login_page_user(request):
       messages.error(request, 'Invalid login.')
   
   return render(request, 'login_page.html')
+
+
+
+
+#order page
+def order_page(request):
+  return render(request, 'order_page.html')

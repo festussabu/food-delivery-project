@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Vendor, FoodItem
 
+
+
+
+
 # vendor registration
 def vendor_registration_view(request):
   if request.method == 'POST':
@@ -25,13 +29,19 @@ def vendor_registration_view(request):
         return redirect('vendor_app:vendor_page')
   return render(request, 'vendor_registration.html')
 
+
+
+
 #vendor home page
 @login_required()
 def vendor_home_page(request):
   food_items = FoodItem.objects.all()
   return render(request, 'vendor_page.html', {'food_items':food_items})
 
-#login
+
+
+
+#vendor login
 def login_page(request):
   if request.method == 'POST':
     email = request.POST.get('email')
@@ -47,6 +57,8 @@ def login_page(request):
       messages.error(request, 'Email or Password is incorrect.')
   
   return render(request, 'login_page.html')
+
+
 
 
 
@@ -67,4 +79,5 @@ def add_food(request):
       messages.error(request, 'Something went wrong.')
       return redirect('vendor_app:add_food')
   return render(request, 'add_food.html')
-  
+
+

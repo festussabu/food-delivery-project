@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="order-table-container">
+      <div class="order-box">
+        <div class="order-item">noodles</div>
+        <div class="order-price">$2999</div>
+        <div class="order-date">02-32-3543</div>
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="order-delete">
+            <button type="submit">🗑</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

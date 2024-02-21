@@ -37,6 +37,7 @@
         text-decoration: none;
         font-weight: bold;
         font-size: 16px;
+        margin-right: 1rem;
       }
       .vendor-page-container .card-container {
         margin-top: 100px;
@@ -102,6 +103,7 @@
       <nav>
         <div class="add-food">
           <a href="{% url 'vendor_app:add_food' %}">Add Food</a>
+          <a href="{% url 'user_app:order_page' %}">Orders</a>
         </div>
       </nav>
       <div class="card-container">

@@ -20,11 +20,3 @@ class FoodItem(models.Model):
   def __str__(self):
     return self.food_name
 
-class Order(models.Model):
-  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-  vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-  ordered_item = models.CharField(max_length=25)
-  delivery_address = models.CharField(max_length=100)
-
-  def __str__(self):
-    return self.ordered_item

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Customer
+from .models import Customer, Order
 from vendor_app.models import FoodItem
 from django.db.models import Q
 
@@ -75,4 +75,6 @@ def login_page_user(request):
 
 #order page
 def order_page(request):
-  return render(request, 'order_page.html')
+  
+  order_db = Order.objects.all()
+  return render(request, 'order_page.html', {'orders':order_db})

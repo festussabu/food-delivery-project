@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Vendor, FoodItem
 
@@ -32,11 +31,49 @@ def vendor_registration_view(request):
 
 
 
+
+
 #vendor home page
-@login_required()
 def vendor_home_page(request):
   food_items = FoodItem.objects.all()
   return render(request, 'vendor_page.html', {'food_items':food_items})
+
+
+
+
+
+
+
+#delete product
+def delete_product(request, id):
+  food_items = FoodItem.objects.filter(id=id)
+  food_items.delete()
+  return redirect('vendor_app:vendor_page')
+
+
+
+
+
+
+#update product
+def update_food(request, id):
+  food_items = FoodItem.objects.filter(id=id) 
+  return render(request, 'update_food.html', {'update':food_items})
+
+def updated_food(request):
+  if request.method == 'POST':
+    food_id = request.POST.get('food_item_id')
+    food_name = request.POST.get('food_name')
+    food_category = request.POST.get('food_category')
+    food_price = request.POST.get('food_price')
+    food_image = request.FILES.get('food_image')
+
+    food_items = FoodItem.objects.filter(id=food_id).update(food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image)
+    return redirect('vendor_app:vendor_page')
+  return render(request, 'update_food.html')
+
+
+
 
 
 

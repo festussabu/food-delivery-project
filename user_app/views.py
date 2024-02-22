@@ -8,6 +8,7 @@ from django.db.models import Q
 
 
 
+
 #user Home page
 def user_page(request):
     search_category = request.POST.get('search_category')

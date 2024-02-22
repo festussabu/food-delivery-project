@@ -81,7 +81,6 @@
         .cards
         .modify-product
         .btn-delete {
-        color: white;
         background: red;
         border-radius: 3px;
         border: none;
@@ -91,10 +90,15 @@
         .cards
         .modify-product
         .btn-update {
-        color: white;
         background: green;
         border-radius: 3px;
         border: none;
+      }
+      .vendor-page-container .card-container .cards .modify-product button a {
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -119,8 +123,10 @@
             </div>
           </div>
           <div class="modify-product">
-            <button class="btn-delete">DELETE</button>
-            <button class="btn-update">UPDATE</button>
+            <button class="btn-delete">
+              <a href="{% url 'vendor_app:delete_product' i.id %}">DELETE</a>
+            </button>
+            <button class="btn-update"><a href="{% url 'vendor_app:update_food' i.id %}">UPDATE</a></button>
           </div>
         </div>
         {% endfor %}

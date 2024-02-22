@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import SuperuserLoginForm
 from django.contrib.auth.decorators import login_required
+from vendor_app.models import Vendor
 
 
 #index page
@@ -29,3 +30,13 @@ def superuser_login(request):
         form = SuperuserLoginForm()
     return render(request, 'superuser_login.html', {'form': form})
 
+
+
+
+#rendering vendor objects
+
+def vendor_details(request):
+
+    vendor_object = Vendor.objects.all().values('vendor_name', 'vendor_email')
+    
+    return render(request, 'admin_watch_vendors.html', {'vendor_object':vendor_object})

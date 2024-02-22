@@ -66,7 +66,7 @@
         margin-bottom: 10px;
         gap: 5px;
         font-size: 18px;
-        color: rgb(255, 0, 0);
+        color: rgb(0, 0, 0);
       }
       .vendor-page-container .card-container .cards .vendor-updation {
         display: grid;
@@ -100,6 +100,7 @@
       <nav>
         <div class="nav">
           <a href="{% url 'user_app:order_page' %}">Orders</a>
+          <a href="{% url 'admin_app:admin_page' %}">Home</a>
         </div>
       </nav>
       <div class="card-container">
@@ -117,7 +118,9 @@
           </div>
           <div class="vendor-updation">
             <button class="btn-delete">
-              <a href="#">REMOVE VENDOR</a>
+              <a href="{% url 'admin_app:remove_vendor' id=i.id %}"
+                >REMOVE VENDOR</a
+              >
             </button>
           </div>
         </div>

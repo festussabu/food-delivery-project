@@ -5,6 +5,11 @@ from django.contrib.auth.decorators import login_required
 from vendor_app.models import Vendor
 
 
+
+
+
+
+
 #index page
 def index_page(request):
     return render(request, 'index_page.html')
@@ -33,10 +38,20 @@ def superuser_login(request):
 
 
 
+
+
 #rendering vendor objects
-
 def vendor_details(request):
-
-    vendor_object = Vendor.objects.all().values('vendor_name', 'vendor_email')
-    
+    vendor_object = Vendor.objects.all()
     return render(request, 'admin_watch_vendors.html', {'vendor_object':vendor_object})
+
+
+
+
+
+
+#remove vendor by admin
+def remove_vendor(request, id):
+    vendor_object = Vendor.objects.filter(id =id)
+    vendor_object.delete()
+    return redirect('admin_app:vendor_details')

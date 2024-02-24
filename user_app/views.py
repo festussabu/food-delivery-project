@@ -3,6 +3,9 @@ from django.contrib import messages
 from .models import Customer, Order
 from vendor_app.models import FoodItem
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
+
 
 
 
@@ -65,6 +68,9 @@ def login_page_user(request):
     
     user_login = Customer.objects.filter(email=email, password=password)
     if user_login:
+      for ls in user_login:
+        idno = ls.username
+        request.session['idn']=idno
       return redirect('user_app:user_page')
     else:
       messages.error(request, 'Invalid login.')
@@ -78,4 +84,5 @@ def login_page_user(request):
 def order_page(request):
   
   order_db = Order.objects.all()
-  return render(request, 'order_page.html', {'orders':order_db})
+  idno = request.session['idn']
+  return render(request, 'order_page.html', {'orders':order_db,'user':idno})

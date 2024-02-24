@@ -13,8 +13,6 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
-  customer_name = models.CharField(max_length=25)
-  train_number = models.IntegerField()
   product_name =  models.CharField(max_length=25)
   price =  models.CharField(max_length=25)
   date = models.DateField()

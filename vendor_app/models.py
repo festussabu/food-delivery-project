@@ -12,7 +12,7 @@ class Vendor(models.Model):
     return self.vendor_name
 
 class FoodItem(models.Model):
-  food_image = models.ImageField(upload_to='pics')
+  food_image = models.ImageField()
   food_name = models.CharField(max_length=25)
   food_category = models.CharField(max_length=20)
   food_price = models.IntegerField()

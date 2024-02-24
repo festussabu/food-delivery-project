@@ -66,9 +66,14 @@ def updated_food(request):
     food_name = request.POST.get('food_name')
     food_category = request.POST.get('food_category')
     food_price = request.POST.get('food_price')
-    food_image = request.FILES.get('food_image')
 
-    food_items = FoodItem.objects.filter(id=food_id).update(food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image)
+    food_items = FoodItem.objects.filter(id=food_id).update(food_name=food_name, food_category=food_category, food_price=food_price)
+
+    #for updating image
+    food_image = FoodItem.objects.get(id=food_id)
+    food_image.food_image = request.FILES.get('food_image')
+    food_image.save()
+ 
     return redirect('vendor_app:vendor_page')
   return render(request, 'update_food.html')
 

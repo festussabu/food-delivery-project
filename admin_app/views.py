@@ -55,3 +55,21 @@ def remove_vendor(request, id):
     vendor_object = Vendor.objects.filter(id =id)
     vendor_object.delete()
     return redirect('admin_app:vendor_details')
+
+
+
+
+
+#approve vendor by admin
+def approve_vendor(request):
+    if request.method == 'POST':
+        vendor_id = request.POST.get('idno')
+        approval_status=Vendor.objects.get(id=vendor_id)
+        approval_status.vendor_approval_status=True
+        if approval_status:
+            approval_status.save()
+            return redirect('admin_app:approve_vendor')
+
+    vendor_object = Vendor.objects.all()
+    return render(request, 'admin_approve_vendor.html',{'vendor_object':vendor_object})
+

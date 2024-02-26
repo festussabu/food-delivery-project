@@ -25,7 +25,7 @@ def vendor_registration_view(request):
       vendor_db = Vendor.objects.create(vendor_name = name, vendor_email=email, vendor_password=password)
 
       if vendor_db:
-        return redirect('vendor_app:vendor_page')
+        return redirect('vendor_app:login_page')
   return render(request, 'vendor_registration.html')
 
 
@@ -42,8 +42,6 @@ def vendor_home_page(request):
 
 
 
-
-
 #delete product
 def delete_product(request, id):
   food_items = FoodItem.objects.filter(id=id)
@@ -54,11 +52,11 @@ def delete_product(request, id):
 
 
 
-
 #update product
 def update_food(request, id):
   food_items = FoodItem.objects.filter(id=id) 
   return render(request, 'update_food.html', {'update':food_items})
+
 
 def updated_food(request):
   if request.method == 'POST':
@@ -69,15 +67,13 @@ def updated_food(request):
 
     food_items = FoodItem.objects.filter(id=food_id).update(food_name=food_name, food_category=food_category, food_price=food_price)
 
-    #for updating image
+    #for updating image field
     food_image = FoodItem.objects.get(id=food_id)
     food_image.food_image = request.FILES.get('food_image')
     food_image.save()
  
     return redirect('vendor_app:vendor_page')
   return render(request, 'update_food.html')
-
-
 
 
 
@@ -91,12 +87,17 @@ def login_page(request):
     if not email:
       messages.error(request, 'Enter your email')
       return redirect('vendor_app:login_page')
-    
-    vendor_login = Vendor.objects.filter(vendor_email=email, vendor_password=password)
+    if not password:
+      messages.error(request, 'Enter your passwrod')
+      return redirect('vendor_app:login_page')
+
+      
+      
+    vendor_login = Vendor.objects.filter(vendor_email=email, vendor_password=password, vendor_approval_status=True)
     if vendor_login:
       return redirect('vendor_app:vendor_page')
     else:
-      messages.error(request, 'Email or Password is incorrect.')
+      messages.error(request, 'Admin approval needed for login.. ')
   
   return render(request, 'login_page.html')
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Vendor, FoodItem
+from user_app.models import Order
 
 
 
@@ -124,3 +125,10 @@ def add_food(request):
   return render(request, 'add_food.html')
 
 
+
+
+#order page 
+def order_page_vendor(request):
+
+  order_items = Order.objects.all()
+  return render(request, 'order_page_vendor.html', {'orders':order_items})

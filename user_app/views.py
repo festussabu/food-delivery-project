@@ -8,10 +8,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
-
-
-
 #user Home page
 def user_page(request):
     search_category = request.POST.get('search_category')
@@ -68,9 +64,18 @@ def login_page_user(request):
     
     user_login = Customer.objects.filter(email=email, password=password)
     if user_login:
-      for ls in user_login:
-        idno = ls.username
-        request.session['idn']=idno
+
+
+      for logged_in_user in user_login:  
+        
+        train_number = logged_in_user.train_number
+        request.session['train_number']=train_number
+
+        current_user = logged_in_user.username
+        request.session['current_user']=current_user
+
+        
+        
       return redirect('user_app:user_page')
     else:
       messages.error(request, 'Invalid login.')
@@ -80,9 +85,26 @@ def login_page_user(request):
 
 
 
+
+#remove order items
+def order_page_remove_item(request, id):
+  order_db = Order.objects.filter(id=id)
+  order_db.delete()
+  return redirect('user_app:order_page')
+
+
+
+
+
 #order page
 def order_page(request):
-  
+  if request.method == 'POST':
+    food_name = request.POST.get('food_name')
+    food_price = request.POST.get('food_price')
+
+    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
+    return redirect('user_app:order_page')
+
   order_db = Order.objects.all()
-  idno = request.session['idn']
-  return render(request, 'order_page.html', {'orders':order_db,'user':idno})
+  return render(request, 'order_page.html', {'orders':order_db})
+

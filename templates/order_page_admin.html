@@ -42,7 +42,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        text-align: start;
         padding-top: 2rem;
         border-bottom: 1px solid gray;
         text-align: center;
@@ -52,11 +51,13 @@
         border: 1px solid gray;
         height: auto;
       }
+      .order-table-container .flex-row span:last-child {
+        border: none;
+      }
 
       .order-table-container .flex-row .order-item,
       .order-price,
       .order-date,
-      .order-delete,
       .customer-name,
       .customer-train-number {
         font-size: 18px;
@@ -68,7 +69,6 @@
       .order-table-container .flex-row .order-item-child,
       .order-price-child,
       .order-date-child,
-      .order-delete-child,
       .customers,
       .customer-train-number-child {
         margin-top: 1rem;
@@ -81,7 +81,6 @@
         .order-item-child:first-child,
       .order-price-child:first-child,
       .order-date-child:first-child,
-      .order-delete-child:first-child,
       .customers:first-child,
       .customer-train-number-child:first-child {
         margin-top: 2.5rem;
@@ -92,7 +91,7 @@
     <div class="order-table-container">
       <nav>
         <div class="orders">
-          <a href="{% url 'user_app:user_page' %}">Home Page</a>
+          <a href="{% url 'admin_app:admin_page' %}">Home Page</a>
         </div>
       </nav>
       <div class="flex-row">
@@ -131,15 +130,6 @@
           {% endfor %}
         </div>
         <span></span>
-
-        <div class="order-delete">
-          Remove {% for i in orders %}
-
-          <div class="order-delete-child">
-            <a href="{% url 'user_app:order_page_remove_item' i.id %}">🗑</a>
-          </div>
-          {% endfor %}
-        </div>
       </div>
     </div>
   </body>

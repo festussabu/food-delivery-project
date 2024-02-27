@@ -13,9 +13,11 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
+  train_number = models.CharField(max_length=10)
+  customer_name = models.CharField(max_length=25)
   product_name =  models.CharField(max_length=25)
   price =  models.CharField(max_length=25)
-  date = models.DateField()
+  date = models.DateField(auto_now_add=True)
 
   def __str__(self):
     return self.customer_name

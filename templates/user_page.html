@@ -74,7 +74,7 @@
         cursor: pointer;
         padding: 10px 20px;
       }
-      .user-page-container .card-container .cards .buy-product .btn-update {
+      .user-page-container .card-container .cards .buy-product .btn-buy {
         color: white;
         background: green;
         border-radius: 3px;
@@ -137,13 +137,29 @@
               >
             </div>
           </div>
-          <div class="buy-product">
-            <button class="btn-update">BUY NOW</button>
-          </div>
+          <form action="{% url 'user_app:order_page' %}" method="post">
+            <div class="buy-product">
+              {% csrf_token %}
+              <button class="btn-buy" type="submit">BUY NOW</button>
+            </div>
+            <input type="text" hidden value="{{i.id}}" name="idno" />
+            <input
+              type="text"
+              hidden
+              value="{{i.food_name}}"
+              name="food_name"
+            />
+            <input
+              type="text"
+              hidden
+              value="{{i.food_price}}"
+              name="food_price"
+            />
+          </form>
         </div>
         {% endfor %}
       </div>
-      <p class="no-item-found">{{msg}}</p>
+      <h2 style="margin-left: 40%">{{msg}}</h2>
     </div>
   </body>
 </html>

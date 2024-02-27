@@ -3,9 +3,7 @@ from django.contrib.auth import authenticate, login
 from .forms import SuperuserLoginForm
 from django.contrib.auth.decorators import login_required
 from vendor_app.models import Vendor
-from user_app.models import Order
-
-
+from user_app.models import Order, Customer
 
 
 
@@ -78,6 +76,20 @@ def approve_vendor(request):
 
 #order page 
 def order_page_admin(request):
-
   order_items = Order.objects.all()
   return render(request, 'order_page_admin.html', {'orders':order_items})
+
+
+
+
+#rendering user objects
+def user_details(request):
+    customers = Customer.objects.all()
+    return render(request, 'admin_watch_users.html', {'customers':customers})
+
+
+#remove user by admin
+def remove_user(request, id):
+    filtered_users = Customer.objects.filter(id=id)
+    filtered_users.delete()
+    return redirect('admin_app:user_details')

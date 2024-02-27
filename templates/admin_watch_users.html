@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <style>
+    body{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .user-details-container-in-admin-page{
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    }
+    .user-details-container-in-admin-page nav {
+      position: fixed;
+      top: 0;
+    }
+    .user-details-container-in-admin-page nav .nav {
+      width: 100vw;
+      height: 80px;
+      background: rgb(228, 226, 226);
+      display: flex;
+      align-items: center;
+      justify-content: start;
+    }
+    .user-details-container-in-admin-page nav a {
+      color: rgb(3, 10, 102);
+      margin-left: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      margin-right: 1rem;
+    }
+    .user-details-container-in-admin-page .user-table .content-table tr td button{
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: red;
+      margin: 4px;
+    }
+    .user-details-container-in-admin-page .user-table .content-table tr td a button{
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+  
+  
+</head>
+
+<body>
+
+  <div class="user-details-container-in-admin-page">
+    <nav>
+      <div class="nav">
+        <a href="{% url 'admin_app:admin_page' %}">Home</a>
+      </div>
+    </nav>
+    <div class="user-table">
+      <table class="content-table" bgcolor="black" width="900" style="text-align: center;">
+          <tr bgcolor="gray" style="color: white;" height="50">
+            <th width="300">Name</th>
+            <th width="300">Email</th>
+            <th width="300">Train No</th>
+            <th width="300">PNR No</th>
+            <th width="300">Remove</th>
+          </tr>
+          {% for i in customers %}
+          <tr bgcolor="lightgray" height="50">
+            <td>{{i.username}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.train_number}}</td>
+            <td>{{i.pnr_number}}</td>
+            <td><a href="{% url 'admin_app:remove_user' i.id %}"><button>Remove</button></a></td>
+          </tr>
+          {% endfor %}
+      </table>  
+    </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import superuser_login, admin_page, index_page, vendor_details, remove_vendor, approve_vendor, order_page_admin
+from .views import superuser_login, admin_page, index_page, vendor_details, remove_vendor, approve_vendor, order_page_admin, user_details, remove_user
 
 app_name = 'admin_app'
 
@@ -10,5 +10,8 @@ urlpatterns = [
     path('vendor_details/', vendor_details, name='vendor_details'),
     path('remove_vendor/<int:id>', remove_vendor, name='remove_vendor'),
     path('approve_vendor/', approve_vendor, name='approve_vendor'),
-    path('order_page_admin', order_page_admin, name='order_page_admin'),
+    path('order_page_admin/', order_page_admin, name='order_page_admin'),
+    path('user_details/', user_details, name='user_details'),
+    path('remove_user/<int:id>/', remove_user, name='remove_user'),
+    
 ]

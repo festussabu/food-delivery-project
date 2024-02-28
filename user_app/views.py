@@ -108,3 +108,8 @@ def order_page(request):
   order_db = Order.objects.all()
   return render(request, 'order_page.html', {'orders':order_db})
 
+
+
+#feedback by user page
+def feedback_by_user(request):
+  return render(request, 'feedback_by_user_page.html')

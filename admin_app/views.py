@@ -93,3 +93,13 @@ def remove_user(request, id):
     filtered_users = Customer.objects.filter(id=id)
     filtered_users.delete()
     return redirect('admin_app:user_details')
+
+
+
+
+#feedback page
+def feedback_page(request):
+    
+  #this will remove duplicates.
+  user = Order.objects.values_list('customer_name',flat=True).distinct()
+  return render(request, 'feedback_page.html', {'user':user})

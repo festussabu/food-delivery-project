@@ -22,7 +22,4 @@ class Order(models.Model):
   def __str__(self):
     return self.customer_name
   
-
-class FeedBack(models.Model):
-  user_feedback = models.CharField(max_length=200)
   

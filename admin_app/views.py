@@ -4,6 +4,7 @@ from .forms import SuperuserLoginForm
 from django.contrib.auth.decorators import login_required
 from vendor_app.models import Vendor
 from user_app.models import Order, Customer
+from .models import Feedback
 
 
 
@@ -101,5 +102,6 @@ def remove_user(request, id):
 def feedback_page(request):
     
   #this will remove duplicates.
-  user = Order.objects.values_list('customer_name',flat=True).distinct()
-  return render(request, 'feedback_page.html', {'user':user})
+#   feedback_db = Order.objects.values_list('customer_name',flat=True).distinct()
+  feedback_db = Feedback.objects.all()
+  return render(request, 'feedback_page.html', {'feedback_db':feedback_db})

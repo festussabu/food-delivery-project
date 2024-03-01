@@ -4,6 +4,7 @@ from .models import Customer, Order
 from vendor_app.models import FoodItem
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from admin_app.models import Feedback
 
 
 
@@ -86,6 +87,18 @@ def login_page_user(request):
 
 
 
+#feedback by user page
+def feedback_by_user(request):
+  if request.method == 'POST':
+    review=request.POST.get('feedback_of_user')
+    feedback_db = Feedback.objects.create(customer_name=request.session['current_user'], feedback=review)
+    return redirect('user_app:order_page')
+  return render(request, 'feedback_by_user_page.html')
+
+
+
+
+
 #remove order items
 def order_page_remove_item(request, id):
   order_db = Order.objects.filter(id=id)
@@ -103,13 +116,10 @@ def order_page(request):
     food_price = request.POST.get('food_price')
 
     order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
-    return redirect('user_app:order_page')
+    return redirect('user_app:feedback_by_user')
 
   order_db = Order.objects.all()
   return render(request, 'order_page.html', {'orders':order_db})
 
 
 
-#feedback by user page
-def feedback_by_user(request):
-  return render(request, 'feedback_by_user_page.html')

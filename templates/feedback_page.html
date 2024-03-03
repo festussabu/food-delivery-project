@@ -11,9 +11,19 @@
         margin: 0;
         box-sizing: border-box;
       }
+      .feedback-container {
+        min-height: 100vh;
+        height: 100%;
+        width: 100%;
+        background-color: #090921;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
       .feedback-container nav {
         position: fixed;
         top: 0;
+        z-index: 100;
       }
       .feedback-container nav .nav {
         width: 100vw;
@@ -31,58 +41,69 @@
         font-size: 16px;
         margin-right: 1rem;
       }
-      .feedback-container {
-        min-height: 100vh;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        background-color: rgb(90, 89, 89);
+      .feedback-container .main-feedback-container {
+        margin-top: 80px;
         color: white;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-          sans-serif;
       }
-      .feedback-container .feedback-card-container {
-        min-height: 20rem;
-        height: 100%;
-        width: 90%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        margin-top: 100px;
-        gap: 5rem;
-        padding: 40px;
-      }
-      .feedback-container .feedback-card-container .feedback-card {
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-        border-radius: 5px;
-        background-color: rgba(20, 112, 87, 0.5);
-        transition: all 0.4s ease;
-      }
-      .feedback-container .feedback-card-container .feedback-card:hover {
-        transform: scale(1.1);
-      }
-      .feedback-container
-        .feedback-card-container
-        .feedback-card
-        .feedback-card-details {
+      .feedback-container .main-feedback-container .heading {
         display: flex;
+        align-items: center;
         flex-direction: column;
-        padding: 10px;
+      }
+      .feedback-container .main-feedback-container .heading h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .feedback-container .main-feedback-container .heading p {
+        font-size: 18px;
+        width: 60rem;
+        text-align: center;
+      }
+      .feedback-container .main-feedback-container .cards-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 50px;
+        flex-wrap: wrap;
+        padding: 3rem;
+      }
+      .feedback-container .main-feedback-container .cards-container .flex-col {
+        width: 30rem;
+        padding: 15px;
+        height: 15rem;
+        margin: 1rem;
+        cursor: pointer;
+        border-radius: 10px;
+        background-color: #10102a;
+        border: 1px solid #10102a;
+        transition: all 0.2s linear;
+        position: relative;
       }
       .feedback-container
-        .feedback-card-container
-        .feedback-card
-        .feedback-card-details
-        .name {
-        margin-bottom: 3rem;
+        .main-feedback-container
+        .cards-container
+        .flex-col:hover {
+        border-color: aqua;
+        transform: scale(1.01);
+        background-color: #090921;
+        box-shadow: 0 0px 5px 0px #cbc0c0;
       }
       .feedback-container
-        .feedback-card-container
-        .feedback-card
-        .feedback-card-details
-        .feedback {
-        font-size: 20px;
+        .main-feedback-container
+        .cards-container
+        .flex-col
+        p {
+        font-size: 16px;
+        width: 30rem;
+        line-height: 22px;
+      }
+      .feedback-container
+        .main-feedback-container
+        .cards-container
+        .flex-col
+        .date {
+        position: absolute;
+        bottom: 3px;
       }
     </style>
   </head>
@@ -93,16 +114,25 @@
           <a href="{% url 'admin_app:admin_page' %}">Home</a>
         </div>
       </nav>
-      <div class="feedback-card-container">
-        {% for i in feedback_db %}
-
-        <div class="feedback-card">
-          <div class="feedback-card-details">
-            <h1 class="name">{{i.customer_name}}</h1>
-            <p class="feedback">{{i.feedback}}</p>
-          </div>
+      <div class="main-feedback-container">
+        <div class="heading">
+          <h2>Our Happy Customers</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore
+            neque possimus praesentium odit ad quasi minus iste at fugiat culpa
+            tempora magni, aspernatur expedita veritatis corrupti velit pariatur
+            mollitia deserunt.
+          </p>
         </div>
-        {% endfor %}
+        <div class="cards-container flex-row">
+          {% for i in feedback_db %}
+          <div class="flex-col">
+            <h2>{{i.customer_name}}</h2>
+            <p>{{i.feedback}}</p>
+            <p class="date">{% for i in date %} {{i}} {% endfor %}</p>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </body>

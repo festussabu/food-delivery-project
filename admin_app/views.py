@@ -104,5 +104,5 @@ def feedback_page(request):
   #this will remove duplicates.
 #   feedback_db = Order.objects.values_list('customer_name',flat=True).distinct()
   feedback_db = Feedback.objects.all()
-  date = Order.objects.values_list('date', flat=True).distinct()
-  return render(request, 'feedback_page.html', {'feedback_db':feedback_db, 'date':date})
+#   date = Order.objects.values_list('date', flat=True).distinct()
+  return render(request, 'feedback_page.html', {'feedback_db':feedback_db})

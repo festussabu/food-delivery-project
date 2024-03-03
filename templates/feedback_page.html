@@ -97,14 +97,6 @@
         width: 30rem;
         line-height: 22px;
       }
-      .feedback-container
-        .main-feedback-container
-        .cards-container
-        .flex-col
-        .date {
-        position: absolute;
-        bottom: 3px;
-      }
     </style>
   </head>
   <body>
@@ -129,7 +121,6 @@
           <div class="flex-col">
             <h2>{{i.customer_name}}</h2>
             <p>{{i.feedback}}</p>
-            <p class="date">{% for i in date %} {{i}} {% endfor %}</p>
           </div>
           {% endfor %}
         </div>

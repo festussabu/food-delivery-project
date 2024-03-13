@@ -97,14 +97,11 @@ def feedback_by_user(request):
 
 
 
-
-
 #remove order items
 def order_page_remove_item(request, id):
   order_db = Order.objects.filter(id=id)
   order_db.delete()
   return redirect('user_app:order_page')
-
 
 
 
@@ -120,6 +117,3 @@ def order_page(request):
 
   order_db = Order.objects.all()
   return render(request, 'order_page.html', {'orders':order_db})
-
-
-

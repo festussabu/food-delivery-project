@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import SuperuserLoginForm
 from django.contrib.auth.decorators import login_required
-from vendor_app.models import Vendor
+from vendor_app.models import Vendor, FoodItem
 from user_app.models import Order, Customer
 from .models import Feedback
 
@@ -106,3 +106,11 @@ def feedback_page(request):
   feedback_db = Feedback.objects.all()
 #   date = Order.objects.values_list('date', flat=True).distinct()
   return render(request, 'feedback_page.html', {'feedback_db':feedback_db})
+
+
+
+#rendering food products
+def admin_food_items(request):
+    food_items = FoodItem.objects.all()
+    return render(request, 'admin_food_items.html', {'food_items':food_items})
+

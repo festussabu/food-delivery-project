@@ -46,7 +46,7 @@ def user_registraion(request):
       user_db = Customer.objects.create(username=user_name, email=user_email, password=user_password, pnr_number=pnr_number, train_number=train_number)
 
       if user_db:
-        return redirect('user_app:user_page')
+        return redirect('user_app:login_page_user')
 
   return render(request, 'user_registration.html')
 
@@ -115,5 +115,5 @@ def order_page(request):
     order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
     return redirect('user_app:feedback_by_user')
 
-  order_db = Order.objects.all()
-  return render(request, 'order_page.html', {'orders':order_db})
+  order = Order.objects.filter(customer_name=request.session['current_user'])  
+  return render(request, 'order_page.html', {'orders':order})

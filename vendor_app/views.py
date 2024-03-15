@@ -88,10 +88,6 @@ def login_page(request):
     if not email:
       messages.error(request, 'Enter your email')
       return redirect('vendor_app:login_page')
-    if not password:
-      messages.error(request, 'Enter your passwrod')
-      return redirect('vendor_app:login_page')
-
       
       
     vendor_login = Vendor.objects.filter(vendor_email=email, vendor_password=password, vendor_approval_status=True)

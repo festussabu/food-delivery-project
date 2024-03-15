@@ -54,7 +54,7 @@
         border: none;
         border-radius: 3px;
         font-size: 16px;
-        margin-bottom: 10px;
+        /* margin-bottom: 10px; */
       }
       .login-page-container form .login-page .message {
         color: red;
@@ -83,6 +83,31 @@
           />
           <button type="submit">Login</button>
           <p class="message">{% for i in messages %} {{i}} {% endfor %}</p>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              height: 0px;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h4>new vendor?</h4>
+            <a href="{% url 'vendor_app:vendor_reg' %}">Register</a>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              height: 0px;
+            "
+          >
+            <h4>new user?</h4>
+            <a href="{% url 'user_app:user_registration' %}">Register</a>
+          </div>
         </div>
       </form>
     </div>

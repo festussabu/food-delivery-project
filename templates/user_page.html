@@ -30,6 +30,7 @@
         display: flex;
         align-items: center;
         justify-content: start;
+        gap: 1rem;
       }
       .user-page-container nav a {
         color: rgb(3, 10, 102);
@@ -109,6 +110,7 @@
       <nav>
         <div class="orders">
           <a href="{% url 'user_app:order_page' %}">Orders</a>
+          <a href="{% url 'user_app:login_page_user' %}">Log Out</a>
           <form action="" method="post">
             {% csrf_token %}
             <input

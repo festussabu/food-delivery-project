@@ -4,7 +4,7 @@ from .views import superuser_login, admin_page, index_page, vendor_details, remo
 app_name = 'admin_app'
 
 urlpatterns = [
-    path('', index_page),
+    path('', index_page, name='index_page'),
     path('superuser/login/', superuser_login, name='superuser_login'),
     path('admin_page/', admin_page, name='admin_page'),
     path('vendor_details/', vendor_details, name='vendor_details'),

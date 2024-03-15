@@ -45,12 +45,14 @@
     <div class="admin-page-container">
       <nav>
         <div class="nav">
+          <a href="{% url 'admin_app:index_page' %}">Main Page</a>
           <a href="{% url 'admin_app:order_page_admin' %}">Orders</a>
           <a href="{% url 'admin_app:admin_food_items' %}">Products</a>
           <a href="{% url 'admin_app:vendor_details' %}">Registered Vendors</a>
           <a href="{% url 'admin_app:approve_vendor' %}">Vendor Approval</a>
           <a href="{% url 'admin_app:user_details' %}">Registered Users</a>
           <a href="{% url 'admin_app:feedback_page' %}">Feedback</a>
+          <a href="{% url 'admin_app:superuser_login' %}">Log Out</a>
         </div>
       </nav>
     </div>

@@ -26,7 +26,6 @@ def admin_page(request):
     #this should be used in the page where you don't need the user to have direct url access 
     if not get_referer(request):
         raise Http404
-    
     return render(request, 'admin_page.html')
 
 def superuser_login(request):

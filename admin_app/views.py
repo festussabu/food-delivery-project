@@ -5,17 +5,28 @@ from django.contrib.auth.decorators import login_required
 from vendor_app.models import Vendor, FoodItem
 from user_app.models import Order, Customer
 from .models import Feedback
+from django.http import Http404
 
 
 
+#this will prevent from user directly accessing urls
+def get_referer(request):
+  referer = request.META.get('HTTP_REFERER')
+  if not referer:
+     return None
+  return referer
 
 
 #index page
 def index_page(request):
     return render(request, 'index_page.html')
 
-@login_required(login_url='superuser_login')
+
 def admin_page(request):
+    #this should be used in the page where you don't need the user to have direct url access 
+    if not get_referer(request):
+        raise Http404
+    
     return render(request, 'admin_page.html')
 
 def superuser_login(request):
@@ -42,6 +53,8 @@ def superuser_login(request):
 
 #rendering vendor objects
 def vendor_details(request):
+    if not get_referer(request):
+        raise Http404
     vendor_object = Vendor.objects.all()
     return render(request, 'admin_watch_vendors.html', {'vendor_object':vendor_object})
 

@@ -2,9 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Vendor, FoodItem
 from user_app.models import Order
+from django.http import Http404
 
 
 
+
+def get_referer(request):
+  referer = request.META.get('HTTP_REFERER')
+  if not referer:
+     return None
+  return referer
 
 
 # vendor registration
@@ -36,6 +43,8 @@ def vendor_registration_view(request):
 
 #vendor home page
 def vendor_home_page(request):
+  if not get_referer(request):
+    raise Http404
   food_items = FoodItem.objects.all()
   return render(request, 'vendor_page.html', {'food_items':food_items})
 
@@ -104,6 +113,8 @@ def login_page(request):
 
 #add food
 def add_food(request):
+  if not get_referer(request):
+    raise Http404
   if request.method == 'POST':
     food_name = request.POST.get('food_name')
     food_category = request.POST.get('food_category')
@@ -125,6 +136,7 @@ def add_food(request):
 
 #order page 
 def order_page_vendor(request):
-
+  if not get_referer(request):
+    raise Http404
   order_items = Order.objects.all()
   return render(request, 'order_page_vendor.html', {'orders':order_items})

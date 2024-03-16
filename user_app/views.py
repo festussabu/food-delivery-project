@@ -5,12 +5,18 @@ from vendor_app.models import FoodItem
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from admin_app.models import Feedback
+from django.http import Http404
 
-
-
+def get_referer(request):
+  referer = request.META.get('HTTP_REFERER')
+  if not referer:
+     return None
+  return referer
 
 #user Home page
 def user_page(request):
+    if not get_referer(request):
+      raise Http404
     search_category = request.POST.get('search_category')
     if search_category:
       food_items = FoodItem.objects.filter(Q(food_category__iexact=search_category))
@@ -89,6 +95,8 @@ def login_page_user(request):
 
 #feedback by user page
 def feedback_by_user(request):
+  if not get_referer(request):
+    raise Http404
   if request.method == 'POST':
     review=request.POST.get('feedback_of_user')
     feedback_db = Feedback.objects.create(customer_name=request.session['current_user'], feedback=review)
@@ -108,6 +116,8 @@ def order_page_remove_item(request, id):
 
 #order page
 def order_page(request):
+  if not get_referer(request):
+    raise Http404
   if request.method == 'POST':
     food_name = request.POST.get('food_name')
     food_price = request.POST.get('food_price')

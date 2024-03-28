@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Page</title>
+
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      .payment-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        margin-top: 40px;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        width: 100%;
+      }
+      .payment-container nav {
+        position: fixed;
+        top: 0;
+      }
+      .payment-container nav .orders {
+        width: 100vw;
+        height: 80px;
+        background: rgb(174, 174, 174);
+        display: flex;
+        align-items: center;
+        justify-content: start;
+      }
+      .payment-container nav a {
+        color: rgb(3, 10, 102);
+        margin-left: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .payment-container .main-heading {
+        font-weight: bold;
+        font-size: 2.5rem;
+        margin-top: 4rem;
+      }
+      .payment-container .address-container {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #c3c2c2;
+        padding: 20px;
+        height: calc(100vh - 30vh);
+        width: calc(100% - 80%);
+      }
+      .payment-container .address-container input {
+        padding: 10px 20px;
+        border: 1px solid #c3c2c2;
+        background-color: hsl(0, 0%, 83%);
+        margin: 2px;
+        font-size: 14px;
+        outline: none;
+        color: black;
+      }
+      .payment-container .address-container input::placeholder {
+        color: rgb(66, 66, 66);
+      }
+      .payment-container .address-container .sub-heading {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .payment-container .address-container .name {
+        display: flex;
+        justify-content: space-between;
+      }
+      .payment-container .address-container .user-name {
+        display: flex;
+        align-items: center;
+        margin: 8px 0px;
+      }
+      .payment-container .address-container .user-name button {
+        padding: 9px 8px;
+        font-size: 16px;
+        border: 1px solid #c3c2c2;
+        background-color: hsl(0, 0%, 83%);
+        margin-left: 2px;
+      }
+      .payment-container .address-container .email-address {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 160px);
+        gap: 10px;
+      }
+      .payment-container .address-container .email-address .address2 {
+        margin-bottom: 8px;
+      }
+      .payment-container .address-container .country-state {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .payment-container .address-container .zip {
+        width: 6rem;
+      }
+      .payment-container .payment-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      .payment-container .payment-section .card-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .payment-container form button[type="submit"] {
+        padding: 12px 20px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 14px;
+        background-color: rgb(47, 47, 119);
+        border: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="payment-container">
+      <nav>
+        <div class="orders">
+          <a href="{% url 'user_app:user_page' %}">Home Page</a>
+        </div>
+      </nav>
+      <h1 class="main-heading">Payment Page</h1>
+      <div class="address-container">
+        <h2 class="sub-heading">Billing Address</h2>
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="name">
+            <input
+              type="text"
+              placeholder="First Name"
+              required
+              name="first-name"
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              required
+              name="last-name"
+            />
+          </div>
+          <div class="user-name">
+            <button type="button">@</button>
+            <input
+              type="text"
+              required
+              name="username"
+              placeholder="username"
+            />
+          </div>
+          <div class="email-address">
+            <input
+              class="email"
+              type="email"
+              placeholder="you@gmail.com"
+              name="email"
+            />
+            <input
+              type="text"
+              required
+              class="address"
+              placeholder="124 cross, Chruch street"
+              name="address"
+            />
+            <input
+              type="text"
+              class="address2"
+              placeholder="Address 2 (Optional)"
+            />
+          </div>
+
+          <div class="country-state">
+            <input type="text" placeholder="Country" required class="country" />
+            <input type="text" placeholder="State" required class="state" />
+          </div>
+          <input
+            type="text"
+            placeholder="Zip code"
+            required
+            class="zip"
+            maxlength="6"
+            minlength="6"
+          />
+          <div class="payment-section">
+            <h3>Payment</h3>
+            <div style="margin-bottom: 10px; display: flex">
+              <input type="radio" name="fav_language" required />
+              <label style="margin-right: 20px" for="html">Credit Card</label
+              ><br />
+              <input type="radio" name="fav_language" required />
+              <label style="margin-right: 20px" for="debit">Debit Card</label
+              ><br />
+              <input type="radio" name="fav_language" required />
+              <label style="margin-right: 20px" for="other">Other</label>
+            </div>
+            <div class="card-name card-number">
+              <input
+                type="TEXT"
+                required
+                placeholder="Name on card"
+                class="credit-card-name"
+              />
+              <input
+                type="number"
+                required
+                placeholder="Credit card number"
+                class="credit-card-number"
+              />
+            </div>
+            <input
+              type="text"
+              required
+              placeholder="CVV"
+              class="cvv"
+              minlength="3"
+              maxlength="3"
+            />
+          </div>
+          <button type="submit">Continue to checkout</button>
+          {% for i in food_items %}
+          <input type="text" hidden value="{{i.id}}" name="idno" />
+          <input type="text" hidden value="{{i.food_name}}" name="food_name" />
+          <input
+            type="text"
+            hidden
+            value="{{i.food_price}}"
+            name="food_price"
+          />
+          {% endfor %}
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

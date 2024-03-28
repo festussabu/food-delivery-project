@@ -113,17 +113,27 @@ def order_page_remove_item(request, id):
 
 
 
+#payment page
+def payment(request):
+  
+  if request.method == "POST":
+    food_name = request.POST.get('food_name')
+    food_price = request.POST.get('food_price')
+
+    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
+    return redirect('user_app:feedback_by_user')
+  
+  
+  food_items = FoodItem.objects.all()
+  return render(request, 'payment_page.html', {'food_items': food_items})
+
 
 #order page
 def order_page(request):
   if not get_referer(request):
     raise Http404
   if request.method == 'POST':
-    food_name = request.POST.get('food_name')
-    food_price = request.POST.get('food_price')
-
-    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
-    return redirect('user_app:feedback_by_user')
+    return redirect('user_app:payment_page')
 
   order = Order.objects.filter(customer_name=request.session['current_user'])  
   return render(request, 'order_page.html', {'orders':order})

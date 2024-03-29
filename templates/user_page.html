@@ -26,7 +26,7 @@
       .user-page-container nav .orders {
         width: 100vw;
         height: 80px;
-        background: rgb(192, 191, 191);
+        background: rgb(228, 226, 226);
         display: flex;
         align-items: center;
         justify-content: start;
@@ -47,7 +47,7 @@
         gap: 25px;
       }
       .user-page-container .card-container .cards {
-        box-shadow: 0px 0px 20px rgb(180, 179, 179);
+        box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.23);
         border-radius: 3px;
         display: flex;
         flex-direction: column;
@@ -133,6 +133,13 @@
             />
             <button>🔎</button>
           </form>
+          <button
+            class="color"
+            style="position: fixed; right: 20px"
+            onclick="changeBackground()"
+          >
+            dark mode
+          </button>
         </div>
       </nav>
       <div class="card-container">
@@ -140,13 +147,22 @@
         <div class="cards">
           <img src="{{i.food_image.url}}" alt="/" />
           <div class="card-details">
-            <div>Name: <span style="color: red">{{i.food_name}}</span></div>
+            <div>
+              Name:
+              <span style="color: red" class="red-color-span"
+                >{{i.food_name}}</span
+              >
+            </div>
             <div>Category: {{i.food_category}}</div>
             <div>
               Rate:
-              <span style="text-decoration: line-through; color: black"
+              <span
+                style="text-decoration: line-through; color: black"
+                class="old-money-span"
                 >$5000</span
-              ><span style="color: green; margin-left: 5px"
+              ><span
+                class="new-money-span"
+                style="color: rgb(17, 136, 17); margin-left: 5px"
                 >${{i.food_price}}</span
               >
             </div>
@@ -177,5 +193,55 @@
       </div>
       <h2 style="margin-left: 40%">{{msg}}</h2>
     </div>
+
+    <script>
+      function changeBackground() {
+        var body = document.body;
+        var cards = document.querySelectorAll(".cards");
+        var redColorSpan = document.querySelectorAll(".red-color-span");
+        var oldMoneySpan = document.querySelectorAll(".old-money-span");
+        var newMoneySpan = document.querySelectorAll(".new-money-span");
+
+        if (body.classList.contains("dark-mode")) {
+          // Change to normal mode
+          body.classList.remove("dark-mode");
+          body.style.backgroundColor = "#fff";
+          body.style.color = "black";
+
+          redColorSpan.forEach(function (item) {
+            item.style.color = "red";
+          });
+
+          oldMoneySpan.forEach(function (item) {
+            item.style.color = "black";
+          });
+
+          newMoneySpan.forEach(function (item) {
+            item.style.color = "green";
+          });
+
+          document.querySelector(".color").innerHTML = "dark mode";
+        } else {
+          // Change to dark mode
+          body.classList.add("dark-mode");
+          body.style.backgroundColor = "#333";
+          body.style.color = "#fff";
+
+          redColorSpan.forEach(function (item) {
+            item.style.color = "yellow";
+          });
+
+          oldMoneySpan.forEach(function (item) {
+            item.style.color = "red";
+          });
+
+          newMoneySpan.forEach(function (item) {
+            item.style.color = "yellow";
+          });
+
+          document.querySelector(".color").innerHTML = "light mode";
+        }
+      }
+    </script>
   </body>
 </html>

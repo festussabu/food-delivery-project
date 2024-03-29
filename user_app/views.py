@@ -4,7 +4,7 @@ from .models import Customer, Order
 from vendor_app.models import FoodItem
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from admin_app.models import Feedback
+from admin_app.models import Feedback, PnrGenerator
 from django.http import Http404
 
 def get_referer(request):
@@ -17,6 +17,8 @@ def get_referer(request):
 def user_page(request):
     if not get_referer(request):
       raise Http404
+
+    #search category
     search_category = request.POST.get('search_category')
     if search_category:
       food_items = FoodItem.objects.filter(Q(food_category__iexact=search_category))
@@ -24,9 +26,24 @@ def user_page(request):
         return render(request, 'user_page.html', {'food_items': food_items})
       else:
         return render(request, 'user_page.html',{'msg':'OOPS... NO ITEM FOUND'})
+        
+    #search PNR number
+    pnr_number_search = request.POST.get('pnr_number_search')
+    if pnr_number_search:
+      try:
+        pnr_number_get = PnrGenerator.objects.get(pnr_number=pnr_number_search)
+        if pnr_number_get:
+          food_items = FoodItem.objects.filter(station_name=pnr_number_get.pnr_station)
+          print('it is in the db')
+          return render(request, 'user_page.html', {'food_items': food_items})
+      except Exception:
+          return render(request, 'user_page.html',{'msg':'OOPS... PNR NOT FOUND'})
+          print('its not')
+    
 
     food_items = FoodItem.objects.all()
     return render(request, 'user_page.html', {'food_items': food_items})
+
 
 
 
@@ -40,6 +57,7 @@ def user_registraion(request):
     pnr_number = request.POST.get('pnr_number')
     train_number = request.POST.get('train_number')
 
+
     if not user_name:
       messages.error(request, 'Name field is required')
       return redirect('user_app:user_registration')
@@ -49,7 +67,7 @@ def user_registraion(request):
       messages.error(request, 'Eamil already exitsts')
 
     else:
-      user_db = Customer.objects.create(username=user_name, email=user_email, password=user_password, pnr_number=pnr_number, train_number=train_number)
+      user_db = Customer.objects.create(username=user_name, email=user_email, password=user_password, train_number=train_number)
 
       if user_db:
         return redirect('user_app:login_page_user')
@@ -80,8 +98,6 @@ def login_page_user(request):
 
         current_user = logged_in_user.username
         request.session['current_user']=current_user
-
-        
         
       return redirect('user_app:user_page')
     else:
@@ -137,3 +153,13 @@ def order_page(request):
 
   order = Order.objects.filter(customer_name=request.session['current_user'])  
   return render(request, 'order_page.html', {'orders':order})
+
+
+
+#pnr rendering
+def display_pnr(request):
+  pnr = PnrGenerator.objects.all()
+
+
+  return render(request, 'pnr_generator.html', {'pnr':pnr})
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available PNR</title>
+
+
+  <style>
+    body{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .pnr-rendering-page{
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    }
+    .pnr-rendering-page nav {
+      position: fixed;
+      top: 0;
+    }
+    .pnr-rendering-page nav .nav {
+      width: 100vw;
+      height: 80px;
+      background: rgb(171, 171, 171);
+      display: flex;
+      align-items: center;
+      justify-content: start;
+    }
+    .pnr-rendering-page nav a {
+      color: rgb(3, 10, 102);
+      margin-left: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      margin-right: 1rem;
+    }
+    .pnr-rendering-page .user-table .content-table tr td button{
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: red;
+      margin: 4px;
+    }
+    .pnr-rendering-page .user-table .content-table tr td a button{
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+  
+  
+</head>
+
+<body>
+
+  <div class="pnr-rendering-page">
+    <nav>
+      <div class="nav">
+        <a href="{% url 'user_app:user_page' %}">Back</a>
+      </div>
+    </nav>
+    <div class="user-table">
+      <table class="content-table" bgcolor="black" width="900" style="text-align: center;">
+          <tr bgcolor="gray" style="color: white;" height="50">
+            <th width="100">NO:</th>
+            <th width="300">PNR NUMBER</th>
+            <th width="300">Station</th>
+          </tr>
+          {% for i in pnr %}
+          <tr bgcolor="lightgray" height="50">
+            <td>{{forloop.counter}}</td>
+            <td>{{i.pnr_number}}</td>
+            <td>{{i.pnr_station}}</td>
+          </tr>
+          {% endfor %}
+      </table>  
+    </div>
+</body>
+</html>

@@ -26,7 +26,7 @@
       .user-page-container nav .orders {
         width: 100vw;
         height: 80px;
-        background: rgb(228, 226, 226);
+        background: rgb(192, 191, 191);
         display: flex;
         align-items: center;
         justify-content: start;
@@ -110,7 +110,9 @@
       <nav>
         <div class="orders">
           <a href="{% url 'user_app:order_page' %}">Orders</a>
+          <a href="{% url 'user_app:display_pnr' %}">PNR</a>
           <a href="{% url 'user_app:login_page_user' %}">Log Out</a>
+
           <form action="" method="post">
             {% csrf_token %}
             <input
@@ -118,6 +120,16 @@
               name="search_category"
               class="search-category"
               placeholder="Your Favorite Category"
+            />
+            <button>🔎</button>
+          </form>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input
+              type="text"
+              name="pnr_number_search"
+              class="search-category"
+              placeholder="Your PNR Number"
             />
             <button>🔎</button>
           </form>
@@ -138,6 +150,8 @@
                 >${{i.food_price}}</span
               >
             </div>
+            <div>Resturant Name: {{i.resturant_name}}</div>
+            <div hidden>Station Name: {{i.station_name}}</div>
           </div>
           <form action="{% url 'user_app:order_page' %}" method="post">
             <div class="buy-product">

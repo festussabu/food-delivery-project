@@ -126,3 +126,4 @@ def admin_food_items(request):
     food_items = FoodItem.objects.all()
     return render(request, 'admin_food_items.html', {'food_items':food_items})
 
+

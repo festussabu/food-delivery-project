@@ -120,8 +120,10 @@ def add_food(request):
     food_category = request.POST.get('food_category')
     food_price = request.POST.get('food_price')
     food_image = request.FILES.get('food_image')
+    resturant_name = request.POST.get('resturant_name')
+    station_name = request.POST.get('station_name')
 
-    food_items = FoodItem.objects.create(food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image)
+    food_items = FoodItem.objects.create(food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image, resturant_name=resturant_name, station_name=station_name)
     
     if food_items:
       food_items.save()

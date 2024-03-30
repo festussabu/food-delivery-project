@@ -4,7 +4,7 @@ from .models import Customer, Order
 from vendor_app.models import FoodItem
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from admin_app.models import Feedback, PnrGenerator
+from admin_app.models import Feedback, PnrGenerator, MoveTrain
 from django.http import Http404
 
 def get_referer(request):
@@ -42,7 +42,8 @@ def user_page(request):
     
 
     food_items = FoodItem.objects.all()
-    return render(request, 'user_page.html', {'food_items': food_items})
+    current_station = MoveTrain.objects.all()
+    return render(request, 'user_page.html', {'food_items': food_items, 'current_station': current_station})
 
 
 
@@ -159,7 +160,6 @@ def order_page(request):
 #pnr rendering
 def display_pnr(request):
   pnr = PnrGenerator.objects.all()
-
-
   return render(request, 'pnr_generator.html', {'pnr':pnr})
+
 

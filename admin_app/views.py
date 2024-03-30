@@ -4,7 +4,7 @@ from .forms import SuperuserLoginForm
 from django.contrib.auth.decorators import login_required
 from vendor_app.models import Vendor, FoodItem
 from user_app.models import Order, Customer
-from .models import Feedback
+from .models import Feedback, MoveTrain
 from django.http import Http404
 
 
@@ -127,3 +127,17 @@ def admin_food_items(request):
     return render(request, 'admin_food_items.html', {'food_items':food_items})
 
 
+
+def move_train(request):
+
+    if request.method == 'POST':
+        selected_station = request.POST.get('station_name')
+        try:
+            station = MoveTrain.objects.get(id=4)
+            station.current_station = selected_station
+            station.save()
+        except MoveTrain.DoesNotExist:
+            # Handle the case where the object with id=1 doesn't exist
+            print("lier.")
+
+    return render(request, 'move_train.html')

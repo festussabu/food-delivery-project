@@ -7,8 +7,8 @@ class Feedback(models.Model):
   
   def __str__(self):
     return self.customer_name
-  
 
+  
 
 # pnr number generator model.
 class PnrGenerator(models.Model):
@@ -17,3 +17,9 @@ class PnrGenerator(models.Model):
 
   def __str__(self):
     return self.pnr_number
+
+class MoveTrain(models.Model):
+  current_station = models.CharField(max_length = 20, default='')
+
+  def __str__(self):
+    return  self.current_station

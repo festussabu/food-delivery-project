@@ -47,7 +47,7 @@
         gap: 25px;
       }
       .user-page-container .card-container .cards {
-        box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.23);
+        box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3);
         border-radius: 3px;
         display: flex;
         flex-direction: column;
@@ -70,6 +70,7 @@
       .user-page-container .card-container .cards .buy-product {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+        margin-bottom: 10px;
       }
       .user-page-container .card-container .cards .buy-product button {
         cursor: pointer;
@@ -81,6 +82,7 @@
         border-radius: 3px;
         border: none;
       }
+
       .user-page-container nav .orders input {
         padding: 10px 20px;
         margin-left: 5rem;
@@ -102,6 +104,26 @@
         text-align: center;
         font-size: 20px;
         font-weight: bold;
+      }
+      .user-page-container nav .words {
+        position: relative;
+        animation: move-words 16s linear infinite;
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(31, 41, 185);
+      }
+      .user-page-container nav .width-words {
+        position: absolute;
+        bottom: -10px;
+        right: 900px;
+      }
+      @keyframes move-words {
+        0% {
+          left: 300%;
+        }
+        100% {
+          left: -330%;
+        }
       }
     </style>
   </head>
@@ -140,6 +162,17 @@
           >
             dark mode
           </button>
+          <div class="width-words">
+            <p class="words">
+              TIP: If your station is current station you don't have to
+              pre-order.
+            </p>
+          </div>
+          {% for i in current_station %}
+          <div style="position: absolute; right: 200px; color: red">
+            Current Station: {{i.current_station}}
+          </div>
+          {% endfor %}
         </div>
       </nav>
       <div class="card-container">

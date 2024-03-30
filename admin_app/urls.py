@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import superuser_login, admin_page, index_page, vendor_details, remove_vendor, approve_vendor, order_page_admin, user_details, remove_user, feedback_page, admin_food_items
+from .views import superuser_login, admin_page, index_page, vendor_details, remove_vendor, approve_vendor, order_page_admin, user_details, remove_user, feedback_page, admin_food_items, move_train
 
 app_name = 'admin_app'
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('remove_user/<int:id>/', remove_user, name='remove_user'),
     path('feedback_page/', feedback_page, name='feedback_page'),
     path('admin_food_items/', admin_food_items, name='admin_food_items'),
-    
+    path('admin_food_items/', admin_food_items, name='admin_food_items'),
+    path('move_train/', move_train, name='move_train')
 ]

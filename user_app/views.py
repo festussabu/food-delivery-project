@@ -38,7 +38,6 @@ def user_page(request):
           return render(request, 'user_page.html', {'food_items': food_items})
       except Exception:
           return render(request, 'user_page.html',{'msg':'OOPS... PNR NOT FOUND'})
-          print('its not')
     
 
     food_items = FoodItem.objects.all()

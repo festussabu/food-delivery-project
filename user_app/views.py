@@ -13,10 +13,14 @@ def get_referer(request):
      return None
   return referer
 
+
+
 #user Home page
 def user_page(request):
     if not get_referer(request):
       raise Http404
+    
+
 
     #search category
     search_category = request.POST.get('search_category')
@@ -26,7 +30,7 @@ def user_page(request):
         return render(request, 'user_page.html', {'food_items': food_items})
       else:
         return render(request, 'user_page.html',{'msg':'OOPS... NO ITEM FOUND'})
-        
+
     #search PNR number
     pnr_number_search = request.POST.get('pnr_number_search')
     if pnr_number_search:
@@ -90,7 +94,6 @@ def login_page_user(request):
     user_login = Customer.objects.filter(email=email, password=password)
     if user_login:
 
-
       for logged_in_user in user_login:  
         
         train_number = logged_in_user.train_number
@@ -130,15 +133,11 @@ def order_page_remove_item(request, id):
 
 
 #payment page
-def payment(request):
-  
+def payment(request): 
   if request.method == "POST":
-    food_name = request.POST.get('food_name')
-    food_price = request.POST.get('food_price')
 
-    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=food_name, price=food_price)    
+    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=request.session['food_name_session'], price=request.session['food_price_session'])    
     return redirect('user_app:feedback_by_user')
-  
   
   food_items = FoodItem.objects.all()
   return render(request, 'payment_page.html', {'food_items': food_items})
@@ -149,6 +148,20 @@ def order_page(request):
   if not get_referer(request):
     raise Http404
   if request.method == 'POST':
+    food_name = request.POST.get('food_name')
+    food_price = request.POST.get('food_price')
+
+    #getting food_name and food_price for displaying in order_db.
+    
+    food_name_session = food_name
+    request.session['food_name_session']=food_name_session
+    food_price_session = food_price
+    request.session['food_price_session']=food_price_session
+
+    print(food_name_session)
+    print(food_price)
+
+    
     return redirect('user_app:payment_page')
 
   order = Order.objects.filter(customer_name=request.session['current_user'])  

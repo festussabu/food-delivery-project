@@ -58,6 +58,7 @@
       .order-table-container .flex-row .order-item,
       .order-price,
       .order-date,
+      .pre-order-date,
       .customer-name,
       .customer-train-number {
         font-size: 18px;
@@ -69,6 +70,7 @@
       .order-table-container .flex-row .order-item-child,
       .order-price-child,
       .order-date-child,
+      .pre-order-date-child,
       .customers,
       .customer-train-number-child {
         margin-top: 1rem;
@@ -81,6 +83,7 @@
         .order-item-child:first-child,
       .order-price-child:first-child,
       .order-date-child:first-child,
+      .pre-order-date-child,
       .customers:first-child,
       .customer-train-number-child:first-child {
         margin-top: 2.5rem;
@@ -127,6 +130,14 @@
           Date {% for i in orders %}
 
           <div class="order-date-child">{{i.date}}</div>
+          {% endfor %}
+        </div>
+        <span></span>
+
+        <div class="pre-order-date">
+          Pre Order Date {% for i in orders %}
+
+          <div class="pre-order-date-child">{{i.pre_order_date}}</div>
           {% endfor %}
         </div>
         <span></span>

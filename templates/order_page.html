@@ -58,6 +58,7 @@
       .order-date,
       .order-delete,
       .customer-name,
+      .pre-order-date,
       .customer-train-number {
         font-size: 18px;
         margin-bottom: 2rem;
@@ -68,6 +69,7 @@
       .order-table-container .flex-row .order-item-child,
       .order-price-child,
       .order-date-child,
+      .pre-order-date-child,
       .order-delete-child,
       .customers,
       .customer-train-number-child {
@@ -81,6 +83,7 @@
         .order-item-child:first-child,
       .order-price-child:first-child,
       .order-date-child:first-child,
+      .pre-order-date-child:first-child,
       .order-delete-child:first-child,
       .customers:first-child,
       .customer-train-number-child:first-child {
@@ -128,6 +131,14 @@
           Date {% for i in orders %}
 
           <div class="order-date-child">{{i.date}}</div>
+          {% endfor %}
+        </div>
+        <span></span>
+
+        <div class="pre-order-date">
+          Pre Order Date {% for i in orders %}
+
+          <div class="pre-order-date-child">{{i.pre_order_date}}</div>
           {% endfor %}
         </div>
         <span></span>

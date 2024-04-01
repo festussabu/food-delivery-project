@@ -17,8 +17,8 @@ class Order(models.Model):
   product_name =  models.CharField(max_length=25)
   price =  models.CharField(max_length=25)
   date = models.DateField(auto_now_add=True)
+  pre_order_date = models.CharField(max_length=200, default = 'NA', null=True, blank=True)
+  
 
   def __str__(self):
     return self.customer_name
-  
-  

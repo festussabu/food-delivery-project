@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from admin_app.models import Feedback, PnrGenerator, MoveTrain
 from django.http import Http404
 
+
 def get_referer(request):
   referer = request.META.get('HTTP_REFERER')
   if not referer:
@@ -136,7 +137,14 @@ def order_page_remove_item(request, id):
 def payment(request): 
   if request.method == "POST":
 
-    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=request.session['food_name_session'], price=request.session['food_price_session'])    
+    pre_order_date = request.POST.get('pre_order_date')
+
+    if pre_order_date:
+        pre_order_date = request.POST['pre_order_date']
+    else:
+        pre_order_date = 'NA'
+
+    order_db= Order.objects.create(customer_name=request.session['current_user'], train_number=request.session['train_number'],  product_name=request.session['food_name_session'], price=request.session['food_price_session'], pre_order_date = pre_order_date)    
     return redirect('user_app:feedback_by_user')
   
   food_items = FoodItem.objects.all()
@@ -158,8 +166,8 @@ def order_page(request):
     food_price_session = food_price
     request.session['food_price_session']=food_price_session
 
-    print(food_name_session)
-    print(food_price)
+    # print(food_name_session)
+    # print(food_price)
 
     
     return redirect('user_app:payment_page')
@@ -173,5 +181,7 @@ def order_page(request):
 def display_pnr(request):
   pnr = PnrGenerator.objects.all()
   return render(request, 'pnr_generator.html', {'pnr':pnr})
+
+
 
 

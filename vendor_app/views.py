@@ -45,7 +45,7 @@ def vendor_registration_view(request):
 def vendor_home_page(request):
   if not get_referer(request):
     raise Http404
-  food_items = FoodItem.objects.all()
+  food_items = FoodItem.objects.filter(vendor_name = request.session['vendor_name'])
   return render(request, 'vendor_page.html', {'food_items':food_items})
 
 
@@ -101,6 +101,13 @@ def login_page(request):
       
     vendor_login = Vendor.objects.filter(vendor_email=email, vendor_password=password, vendor_approval_status=True)
     if vendor_login:
+
+      for logged_in_vendor in vendor_login:  
+        
+        vendor_name = logged_in_vendor.vendor_name
+        request.session['vendor_name']=vendor_name
+
+      
       return redirect('vendor_app:vendor_page')
     else:
       messages.error(request, 'Admin approval needed for login.. ')
@@ -123,7 +130,7 @@ def add_food(request):
     resturant_name = request.POST.get('resturant_name')
     station_name = request.POST.get('station_name')
 
-    food_items = FoodItem.objects.create(food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image, resturant_name=resturant_name, station_name=station_name)
+    food_items = FoodItem.objects.create(vendor_name=request.session['vendor_name'] ,food_name=food_name, food_category=food_category, food_price=food_price, food_image=food_image, resturant_name=resturant_name, station_name=station_name)
     
     if food_items:
       food_items.save()

@@ -12,6 +12,7 @@ class Vendor(models.Model):
     return self.vendor_name
 
 class FoodItem(models.Model):
+  vendor_name = models.CharField(max_length=40, default='')
   food_image = models.ImageField()
   food_name = models.CharField(max_length=25)
   food_category = models.CharField(max_length=20)
